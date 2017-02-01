@@ -5,3 +5,4 @@ export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
 export const LOGIN_USER = 'LOGIN_USER';
 export const GAME_CREATE = 'GAME_CREATE';
 export const GAME_UPDATE = 'GAME_UPDATE';
+export const GAMES_FETCH_SUCCESS = 'GAMES_FETCH_SUCCESS';
