@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ListView, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { gamesFetch } from '../actions';
+import GameListItem from './GameListItem';
 
 class GameList extends Component {
   componentWillMount() {
@@ -18,11 +19,7 @@ class GameList extends Component {
     this.dataSource = ds.cloneWithRows(games);
   }
   renderRow(game) {
-    return (
-    <View>
-      <Text>{game.name}</Text>
-    </View>
-    );
+    return <GameListItem game={game} />;
   }
   render() {
     return (

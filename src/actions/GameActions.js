@@ -13,7 +13,7 @@ export const gameCreate = ({ name, player }) => {
       .push({ name, player })
       .then(() => {
         dispatch({ type: GAME_CREATE });
-        Actions.gameList();
+        Actions.gameList({ type: 'reset' });
       });
   };
 };
