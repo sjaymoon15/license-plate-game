@@ -8,9 +8,17 @@ import {
 
 export const gameCreate = ({ name, player, stateList }) => {
   const { currentUser } = firebase.auth();
+  const stateListObj = stateList.map((state) => {
+    return {
+      [state.abbreviation]: {
+        name: state.name,
+        image: state.image,
+        seenBy: state.seenBy,
+        seen: state.seen } };
+  });
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/games`)
-      .push({ name, player, stateList })
+      .push({ name, player, stateListObj })
       .then(() => {
         dispatch({ type: GAME_CREATE });
         Actions.gameList({ type: 'reset' });
