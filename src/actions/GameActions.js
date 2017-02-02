@@ -3,7 +3,8 @@ import { Actions } from 'react-native-router-flux';
 import {
   GAME_CREATE,
   GAME_UPDATE,
-  GAMES_FETCH_SUCCESS
+  GAMES_FETCH_SUCCESS,
+  PLAYER_UPDATE
  } from './types';
 
 export const gameCreate = ({ name, player, stateList }) => {
@@ -30,6 +31,13 @@ export const gameUpdate = ({ prop, value }) => {
   return {
     type: GAME_UPDATE,
     payload: { prop, value }
+  };
+};
+
+export const playerUpdate = (player) => {
+  return {
+    type: PLAYER_UPDATE,
+    payload: player
   };
 };
 

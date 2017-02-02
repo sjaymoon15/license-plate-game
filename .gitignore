@@ -54,4 +54,3 @@ fastlane/screenshots
 
 ## project gitignore below
 .eslintrc
-*.bmpr

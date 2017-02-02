@@ -32,7 +32,7 @@ class GameList extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  console.log('state', state);
+  console.log(state);
   return {
     games: state.gameList
   };
