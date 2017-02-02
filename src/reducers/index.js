@@ -2,9 +2,11 @@ import { combineReducers } from 'redux';
 import AuthReducer from './AuthReducer';
 import GameFormReducer from './GameFormReducer';
 import GameReducer from './GameReducer';
+import StatesReducer from './StatesReducer';
 
 export default combineReducers({
   auth: AuthReducer,
   gameForm: GameFormReducer,
-  gameList: GameReducer
+  gameList: GameReducer,
+  stateList: StatesReducer
 });

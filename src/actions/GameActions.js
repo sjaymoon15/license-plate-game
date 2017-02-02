@@ -6,11 +6,11 @@ import {
   GAMES_FETCH_SUCCESS
  } from './types';
 
-export const gameCreate = ({ name, player }) => {
+export const gameCreate = ({ name, player, stateList }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/games`)
-      .push({ name, player })
+      .push({ name, player, stateList })
       .then(() => {
         dispatch({ type: GAME_CREATE });
         Actions.gameList({ type: 'reset' });

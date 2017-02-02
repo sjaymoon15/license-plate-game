@@ -5,8 +5,8 @@ import { Card, CardSection, Button, Input } from './common';
 
 class GameCreate extends Component {
   onButtonPress() {
-    const { name, player } = this.props;
-    this.props.gameCreate({ name, player });
+    const { name, player, stateList } = this.props;
+    this.props.gameCreate({ name, player, stateList });
   }
   render() {
     return (
@@ -39,7 +39,8 @@ class GameCreate extends Component {
 
 const mapStateToProps = (state) => {
   const { name, player } = state.gameForm;
-  return { name, player };
+  const stateList = state.stateList;
+  return { name, player, stateList };
 };
 
 export default connect(mapStateToProps, {
