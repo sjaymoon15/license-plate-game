@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, View } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { CardSection } from './common';
 
 class GameItem extends Component {
-  onRowPress(game) {
-    console.log(game);
+  onRowPress() {
+    Actions.gameScene({ game: this.props.game });
   }
   render() {
     const { name } = this.props.game;
