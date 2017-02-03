@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
-import { gameCreate, gameUpdate, playerUpdate, playerAdded } from '../actions';
+import { View, Text } from 'react-native';
+import {
+  gameCreate, gameUpdate, playerUpdate, playerAdded, playersCreated
+} from '../actions';
 import { Card, CardSection, Button, Input } from './common';
 
 class GameCreate extends Component {
   onCreateButtonPress() {
     const { name, stateList, players } = this.props;
     this.props.gameCreate({ name, stateList, players });
+    this.props.playersCreated();
   }
   onAddButtonPress() {
     const { player } = this.props;
     this.props.playerUpdate(player);
     this.props.playerAdded();
+  }
+  renderAddedPlayers() {
+    const { players } = this.props;
+    return players.map((player) => {
+      return (
+        <CardSection>
+          <Text style={styles.textStyle}>{player.name}</Text>
+        </CardSection>
+      );
+    });
   }
   render() {
     return (
@@ -34,6 +47,7 @@ class GameCreate extends Component {
               onChangeText={text => this.props.gameUpdate({ prop: 'player', value: text })}
             />
           </CardSection>
+          {this.renderAddedPlayers()}
           <CardSection>
             <Button onPress={this.onAddButtonPress.bind(this)}>
               Add Player
@@ -52,6 +66,13 @@ class GameCreate extends Component {
   }
 }
 
+const styles = {
+  textStyle: {
+    fontSize: 18,
+    paddingLeft: 15
+  }
+};
+
 const mapStateToProps = (state) => {
   const { name, player } = state.gameForm;
   const stateList = state.stateList;
@@ -61,5 +82,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  gameUpdate, gameCreate, playerUpdate, playerAdded
+  gameUpdate, gameCreate, playerUpdate, playerAdded, playersCreated
 })(GameCreate);

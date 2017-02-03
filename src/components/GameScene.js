@@ -3,10 +3,10 @@ import { View, Text } from 'react-native';
 
 class GameScene extends Component {
   render() {
-    const { player } = this.props.game;
+    const { name } = this.props.game;
     return (
       <View>
-        <Text>{player}</Text>
+        <Text>{name}</Text>
       </View>
     );
   }
