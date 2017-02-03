@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import {
-  gameCreate, gameUpdate, playerUpdate, playerAdded, playersCreated
+  gameCreate, gameUpdate, playerUpdate, playerAdded, playersCreated,
+  deletePlayer
 } from '../actions';
 import { Card, CardSection, Button, Input } from './common';
 
@@ -17,6 +18,7 @@ class GameCreate extends Component {
     this.props.playerUpdate(player);
     this.props.playerAdded();
   }
+
   renderAddedPlayers() {
     const { players } = this.props;
     return players.map((player) => {
@@ -24,7 +26,12 @@ class GameCreate extends Component {
         <CardSection>
           <View style={styles.containerStyle}>
             <Text style={styles.textStyle}>{player.name}</Text>
-            <Button style={styles.deleteBtnStyle}>Delete</Button>
+            <Button
+              style={styles.deleteBtnStyle}
+              onPress={() => this.props.deletePlayer(players, player)}
+            >
+              Delete
+            </Button>
           </View>
         </CardSection>
       );
@@ -97,5 +104,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  gameUpdate, gameCreate, playerUpdate, playerAdded, playersCreated
+  gameUpdate, gameCreate, playerUpdate, playerAdded, playersCreated, deletePlayer
 })(GameCreate);

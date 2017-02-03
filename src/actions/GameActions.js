@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import {
   GAME_CREATE, GAME_UPDATE, GAMES_FETCH_SUCCESS, PLAYER_UPDATE,
-  PLAYER_ADD_SUCCESS, PLAYERS_CREATE_SUCCESS
+  PLAYER_ADD_SUCCESS, PLAYERS_CREATE_SUCCESS, PLAYER_DELETE
  } from './types';
 
 export const gameCreate = ({ name, players, stateList }) => {
@@ -25,6 +25,16 @@ export const gameCreate = ({ name, players, stateList }) => {
   };
 };
 
+export const gamesFetch = () => {
+  const { currentUser } = firebase.auth();
+  return (dispatch) => {
+    firebase.database().ref(`/users/${currentUser.uid}/games`)
+    .on('value', snapshot => {
+      dispatch({ type: GAMES_FETCH_SUCCESS, payload: snapshot.val() });
+    });
+  };
+};
+
 export const gameUpdate = ({ prop, value }) => {
   return {
     type: GAME_UPDATE,
@@ -42,15 +52,15 @@ export const playerUpdate = (player) => {
 export const playerAdded = () => {
   return { type: PLAYER_ADD_SUCCESS };
 };
+
 export const playersCreated = () => {
   return { type: PLAYERS_CREATE_SUCCESS };
 };
-export const gamesFetch = () => {
-  const { currentUser } = firebase.auth();
-  return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/games`)
-    .on('value', snapshot => {
-      dispatch({ type: GAMES_FETCH_SUCCESS, payload: snapshot.val() });
-    });
+
+export const deletePlayer = (players, player) => {
+  return {
+    type: PLAYER_DELETE,
+    players,
+    payload: player
   };
 };
