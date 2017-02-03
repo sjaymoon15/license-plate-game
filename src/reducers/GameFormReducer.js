@@ -1,6 +1,7 @@
 import {
   GAME_UPDATE,
-  GAME_CREATE
+  GAME_CREATE,
+  PLAYER_ADD_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -14,6 +15,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, [action.payload.prop]: action.payload.value };
     case GAME_CREATE:
       return INITIAL_STATE;
+    case PLAYER_ADD_SUCCESS:
+      return { ...state, player: '' };
     default:
       return state;
   }

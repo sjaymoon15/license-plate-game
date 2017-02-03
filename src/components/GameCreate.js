@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
-import { gameCreate, gameUpdate, playerUpdate } from '../actions';
+import { gameCreate, gameUpdate, playerUpdate, playerAdded } from '../actions';
 import { Card, CardSection, Button, Input } from './common';
 
 class GameCreate extends Component {
@@ -12,6 +12,7 @@ class GameCreate extends Component {
   onAddButtonPress() {
     const { player } = this.props;
     this.props.playerUpdate(player);
+    this.props.playerAdded();
   }
   render() {
     return (
@@ -60,5 +61,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  gameUpdate, gameCreate, playerUpdate
+  gameUpdate, gameCreate, playerUpdate, playerAdded
 })(GameCreate);

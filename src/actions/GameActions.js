@@ -4,7 +4,8 @@ import {
   GAME_CREATE,
   GAME_UPDATE,
   GAMES_FETCH_SUCCESS,
-  PLAYER_UPDATE
+  PLAYER_UPDATE,
+  PLAYER_ADD_SUCCESS
  } from './types';
 
 export const gameCreate = ({ name, players, stateList }) => {
@@ -39,6 +40,10 @@ export const playerUpdate = (player) => {
     type: PLAYER_UPDATE,
     payload: player
   };
+};
+
+export const playerAdded = () => {
+  return { type: PLAYER_ADD_SUCCESS };
 };
 
 export const gamesFetch = () => {
