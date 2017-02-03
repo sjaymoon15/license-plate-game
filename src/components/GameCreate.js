@@ -22,7 +22,10 @@ class GameCreate extends Component {
     return players.map((player) => {
       return (
         <CardSection>
-          <Text style={styles.textStyle}>{player.name}</Text>
+          <View style={styles.containerStyle}>
+            <Text style={styles.textStyle}>{player.name}</Text>
+            <Button style={styles.deleteBtnStyle}>Delete</Button>
+          </View>
         </CardSection>
       );
     });
@@ -69,7 +72,19 @@ class GameCreate extends Component {
 const styles = {
   textStyle: {
     fontSize: 18,
-    paddingLeft: 15
+    alignSelf: 'center',
+    paddingLeft: 15,
+    flex: 2
+  },
+  deleteBtnStyle: {
+    fontSize: 18,
+    flex: 1
+  },
+  containerStyle: {
+    height: 40,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 };
 
