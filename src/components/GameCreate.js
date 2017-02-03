@@ -6,8 +6,8 @@ import { Card, CardSection, Button, Input } from './common';
 
 class GameCreate extends Component {
   onCreateButtonPress() {
-    const { name, player, stateList } = this.props;
-    this.props.gameCreate({ name, player, stateList });
+    const { name, stateList, players } = this.props;
+    this.props.gameCreate({ name, stateList, players });
   }
   onAddButtonPress() {
     const { player } = this.props;

@@ -7,7 +7,7 @@ import {
   PLAYER_UPDATE
  } from './types';
 
-export const gameCreate = ({ name, player, stateList }) => {
+export const gameCreate = ({ name, players, stateList }) => {
   const { currentUser } = firebase.auth();
   const stateListObj = stateList.map((state) => {
     return {
@@ -19,7 +19,7 @@ export const gameCreate = ({ name, player, stateList }) => {
   });
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/games`)
-      .push({ name, player, stateListObj })
+      .push({ name, players, stateListObj })
       .then(() => {
         dispatch({ type: GAME_CREATE });
         Actions.gameList({ type: 'reset' });
