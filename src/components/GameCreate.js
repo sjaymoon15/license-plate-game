@@ -8,17 +8,31 @@ import {
 import { Card, CardSection, Button, Input } from './common';
 
 class GameCreate extends Component {
+  state = { error: '' };
+
   onCreateButtonPress() {
     const { name, stateList, players } = this.props;
     this.props.gameCreate({ name, stateList, players });
     this.props.playersCreated();
+    this.setState({ error: '' });
   }
   onAddButtonPress() {
-    const { player } = this.props;
-    this.props.playerUpdate(player);
-    this.props.playerAdded();
+    const { player, players } = this.props;
+    if (players.length < 6) {
+      this.setState({ error: '' });
+      this.props.playerUpdate(player);
+      this.props.playerAdded();
+    } else {
+      this.setState({ error: 'Max Number of Player: 6' });
+    }
   }
-
+  onDeleteButtonPress(player) {
+    const { players } = this.props;
+    if (players.length <= 6) {
+      this.setState({ error: '' });
+    }
+    this.props.deletePlayer(players, player);
+  }
   renderAddedPlayers() {
     const { players } = this.props;
     return players.map((player) => {
@@ -28,7 +42,7 @@ class GameCreate extends Component {
             <Text style={styles.textStyle}>{player.name}</Text>
             <Button
               style={styles.deleteBtnStyle}
-              onPress={() => this.props.deletePlayer(players, player)}
+              onPress={() => this.onDeleteButtonPress(player)}
             >
               Delete
             </Button>
@@ -58,6 +72,9 @@ class GameCreate extends Component {
             />
           </CardSection>
           {this.renderAddedPlayers()}
+          <Text style={styles.errorTextStyle}>
+            {this.state.error}
+          </Text>
           <CardSection>
             <Button onPress={this.onAddButtonPress.bind(this)}>
               Add Player
@@ -92,6 +109,11 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  errorTextStyle: {
+    fontSize: 18,
+    alignSelf: 'center',
+    color: 'red'
   }
 };
 
@@ -103,6 +125,6 @@ const mapStateToProps = (state) => {
   return { name, player, stateList, players };
 };
 
-export default connect(mapStateToProps, {
-  gameUpdate, gameCreate, playerUpdate, playerAdded, playersCreated, deletePlayer
+export default connect(mapStateToProps,
+  { gameUpdate, gameCreate, playerUpdate, playerAdded, playersCreated, deletePlayer
 })(GameCreate);

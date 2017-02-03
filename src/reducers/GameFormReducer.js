@@ -1,6 +1,5 @@
 import {
-  GAME_UPDATE,
-  GAME_CREATE,
+  GAME_UPDATE, GAME_CREATE,
   PLAYER_ADD_SUCCESS
 } from '../actions/types';
 

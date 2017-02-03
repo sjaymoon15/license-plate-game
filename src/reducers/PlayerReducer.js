@@ -12,7 +12,6 @@ export default (state = INITIAL_STATE, action) => {
     case PLAYERS_CREATE_SUCCESS:
       return INITIAL_STATE;
     case PLAYER_DELETE:
-      console.log('state in delete reducer', state);
       return _.remove(action.players, (player) => {
         return player.name !== action.payload.name;
       });
