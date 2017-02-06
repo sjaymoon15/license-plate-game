@@ -11,17 +11,17 @@ export const emptyGameCreateForm = () => {
 
 export const gameCreate = ({ name, players, stateList }) => {
   const { currentUser } = firebase.auth();
-  const stateListObj = stateList.map((state) => {
+  const stateData = stateList.map((eachState) => {
     return {
-      [state.abbreviation]: {
-        name: state.name,
-        image: state.image,
-        seenBy: state.seenBy,
-        seen: state.seen } };
+      abbreviation: eachState.abbreviation,
+      name: eachState.name,
+      image: eachState.image,
+      seenBy: eachState.seenBy,
+      seen: eachState.seen };
   });
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/games`)
-      .push({ name, players, stateListObj })
+      .push({ name, players, stateData })
       .then(() => {
         dispatch({ type: GAME_CREATE });
         Actions.gameList({ type: 'reset' });

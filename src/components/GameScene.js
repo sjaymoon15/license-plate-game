@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { Card, CardSection, Button } from './common';
 
 class GameScene extends Component {
+  onAddStateButtonPress() {
+    Actions.addAState({ game: this.props.game });
+  }
   render() {
     const { name } = this.props.game;
     return (
-      <View>
-        <Text>{name}</Text>
-      </View>
+      <Card>
+        <CardSection>
+          <Text>{name}</Text>
+        </CardSection>
+        <CardSection>
+          <Button onPress={this.onAddStateButtonPress.bind(this)}>
+            Add a State
+          </Button>
+        </CardSection>
+
+      </Card>
     );
   }
 }

@@ -9,7 +9,7 @@ class LoginForm extends Component {
   componentWillMount() {
     this.props.loginUser({ email: 'Test@test.com', password: 'password' });
   }
-  
+
   onEmailChange(text) {
     this.props.emailChanged(text);
   }

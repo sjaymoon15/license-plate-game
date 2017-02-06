@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListView, View, Text } from 'react-native';
+import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { gamesFetch } from '../actions';
 import GameListItem from './GameListItem';
