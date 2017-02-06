@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
 import { connect } from 'react-redux';
@@ -31,11 +32,12 @@ class GameList extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    games: state.gameList
-  };
+  const games = _.map(state.gameList, (val, uid) => {
+    return { ...val, uid };
+  });
+  return { games };
 };
 
 export default connect(mapStateToProps, { gamesFetch })(GameList);
