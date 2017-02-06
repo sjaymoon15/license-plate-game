@@ -2,8 +2,12 @@ import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import {
   GAME_CREATE, GAME_UPDATE, GAMES_FETCH_SUCCESS, PLAYER_UPDATE,
-  PLAYER_ADD_SUCCESS, PLAYERS_CREATE_SUCCESS, PLAYER_DELETE, PLAYER_NUM_LIMIT
+  PLAYER_ADD_SUCCESS, PLAYERS_CREATE_SUCCESS, PLAYER_DELETE, EMPTY_GAME_CREATFORM
  } from './types';
+
+export const emptyGameCreateForm = () => {
+  return { type: EMPTY_GAME_CREATFORM };
+};
 
 export const gameCreate = ({ name, players, stateList }) => {
   const { currentUser } = firebase.auth();

@@ -3,12 +3,16 @@ import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import {
   gameCreate, gameUpdate, playerUpdate, playerAdded, playersCreated,
-  deletePlayer
+  deletePlayer, emptyGameCreateForm
 } from '../actions';
 import { Card, CardSection, Button, Input } from './common';
 
 class GameCreate extends Component {
   state = { error: '' };
+
+  componentWillMount() {
+    this.props.emptyGameCreateForm();
+  }
 
   onCreateButtonPress() {
     const { name, stateList, players } = this.props;
@@ -68,7 +72,6 @@ class GameCreate extends Component {
               onChangeText={text => this.props.gameUpdate({ prop: 'player', value: text })}
             />
           </CardSection>
-          {this.renderAddedPlayers()}
           <Text style={styles.errorTextStyle}>
             {this.state.error}
           </Text>
@@ -79,6 +82,7 @@ class GameCreate extends Component {
           </CardSection>
         </Card>
         <Card>
+          {this.renderAddedPlayers()}
           <CardSection>
             <Button onPress={this.onCreateButtonPress.bind(this)}>
               Create
@@ -119,5 +123,11 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps,
-  { gameUpdate, gameCreate, playerUpdate, playerAdded, playersCreated, deletePlayer
+  { gameUpdate,
+    gameCreate,
+    playerUpdate,
+    playerAdded,
+    playersCreated,
+    deletePlayer,
+    emptyGameCreateForm
 })(GameCreate);
