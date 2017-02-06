@@ -12,9 +12,7 @@ export default (state = INITIAL_STATE, action) => {
     case PLAYERS_CREATE_SUCCESS:
       return INITIAL_STATE;
     case PLAYER_DELETE:
-      return _.remove(action.players, (player) => {
-        return player.name !== action.payload.name;
-      });
+      return _.without(state, action.payload);
     default:
       return state;
   }

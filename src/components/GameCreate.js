@@ -40,10 +40,7 @@ class GameCreate extends Component {
         <CardSection>
           <View style={styles.containerStyle}>
             <Text style={styles.textStyle}>{player.name}</Text>
-            <Button
-              style={styles.deleteBtnStyle}
-              onPress={() => this.onDeleteButtonPress(player)}
-            >
+            <Button onPress={() => this.onDeleteButtonPress(player)}>
               Delete
             </Button>
           </View>
@@ -99,10 +96,6 @@ const styles = {
     alignSelf: 'center',
     paddingLeft: 15,
     flex: 2
-  },
-  deleteBtnStyle: {
-    fontSize: 18,
-    flex: 1
   },
   containerStyle: {
     height: 40,
