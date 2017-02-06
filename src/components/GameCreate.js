@@ -118,7 +118,6 @@ const mapStateToProps = (state) => {
   const { name, player } = state.gameForm;
   const stateList = state.stateList;
   const players = state.players;
-  console.log('players', players);
   return { name, player, stateList, players };
 };
 

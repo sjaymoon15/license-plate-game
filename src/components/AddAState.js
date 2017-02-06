@@ -4,38 +4,69 @@ import { Picker, View, Text } from 'react-native';
 import { Card, CardSection, Button } from './common';
 
 class AddAState extends Component {
+  state = {
+    selectedState: 'Alabama', seenBy: '', seen: false
+  }
   renderStateList() {
     const { stateData } = this.props.game;
     return stateData.map((eachState) => {
-      return <Picker.Item label={eachState.name} value={eachState.name} />;
+      return (
+        <Picker.Item
+          key={eachState.abbreviation}
+          label={eachState.name}
+          value={eachState.name}
+        />
+      );
     });
+  }
+  renderPlayers() {
+    const { players } = this.props.game;
+    return players.map((player) => {
+      return (
+        <Picker.Item
+          key={player.uid}
+          label={player.name}
+          value={player.name}
+        />
+      );
+    });
+  }
+  onPressButton() {
+    this.setState({ seen: true });
+    console.log('uid', this.props.game.uid);
   }
   render() {
     const { game } = this.props;
-    console.log('game.stateData', game.stateData);
     return (
       <View>
         <Card>
           <Text>{game.name}</Text>
         </Card>
         <Card>
-          <CardSection style={{ flexDirection: 'column' }}>
+          <CardSection style={styles.cardSectionStyle}>
             <Text style={styles.pickerTextStyle}>States</Text>
             <Picker
-              selectedValue={this.props.stateName}
-              // onValueChange={day => this.props.employeeUpdate({ prop: 'shift', value: day })}
-              >
-                {this.renderStateList()}
-                {/* <Picker.Item label='Monday' value='Monday' />
-                <Picker.Item label='Tuesday' value='Tuesday' />
-                <Picker.Item label='Wednesday' value='Wednesday' />
-                <Picker.Item label='Thursday' value='Thursday' />
-                <Picker.Item label='Friday' value='Friday' />
-                <Picker.Item label='Saturday' value='Saturday' />
-                <Picker.Item label='Sunday' value='Sunday' /> */}
-              </Picker>
-            </CardSection>
-          </Card>
+              selectedValue={this.state.selectedState}
+              onValueChange={value => this.setState({ selectedState: value })}
+            >
+              {this.renderStateList()}
+            </Picker>
+          </CardSection>
+          <CardSection style={styles.cardSectionStyle}>
+            <Text style={styles.pickerTextStyle}>Players</Text>
+            <Picker
+              selectedValue={this.state.seenBy}
+              onValueChange={value => this.setState({ seenBy: value })}
+            >
+              {this.renderPlayers()}
+            </Picker>
+          </CardSection>
+          <CardSection>
+            <Button onPress={this.onPressButton.bind(this)}>
+              Save Update
+            </Button>
+          </CardSection>
+        </Card>
       </View>
     );
   }
@@ -43,9 +74,12 @@ class AddAState extends Component {
 
 const styles = {
   pickerTextStyle: {
-    fontSize: 18,
+    fontSize: 16,
     paddingLeft: 20,
-    paddingTop: 10
+    paddingTop: 5
+  },
+  cardSectionStyle: {
+    flexDirection: 'column'
   }
 };
 
