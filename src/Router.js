@@ -4,7 +4,7 @@ import LoginForm from './components/LoginForm';
 import GameCreate from './components/GameCreate';
 import GameList from './components/GameList';
 import GameScene from './components/GameScene';
-import AddAState from './components/AddAState';
+import EditAState from './components/AddAState';
 
 const RouterComponent = () => {
   return (
@@ -23,7 +23,7 @@ const RouterComponent = () => {
         />
         <Scene key='gameCreate' component={GameCreate} title='Create Game' />
         <Scene key='gameScene' component={GameScene} title='Game Status' />
-        <Scene key='addAState' component={AddAState} title='Add a State' />
+        <Scene key='addAState' component={EditAState} title='Edit a State' />
       </Scene>
     </Router>
   );

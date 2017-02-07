@@ -16,7 +16,7 @@ class GameScene extends Component {
         </CardSection>
         <CardSection>
           <Button onPress={this.onAddStateButtonPress.bind(this)}>
-            Add a State
+            Edit a State
           </Button>
         </CardSection>
 

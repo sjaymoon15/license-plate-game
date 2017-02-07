@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Picker, View, Text } from 'react-native';
 import { Card, CardSection, Button } from './common';
 
-class AddAState extends Component {
+class EditAState extends Component {
   state = {
-    selectedState: 'Alabama', seenBy: '', seen: false
+    selectedState: '', seenBy: '', seen: false
+  }
+  onPressButton() {
+    //update firebase here and action out to game status scen
+    console.log(this.state);
+  }
+  onNotSeenPressButton() {
+    this.setState({ seen: false, seenBy: '' });
   }
   renderStateList() {
     const { stateData } = this.props.game;
@@ -23,43 +29,38 @@ class AddAState extends Component {
     const { players } = this.props.game;
     return players.map((player) => {
       return (
-        <Picker.Item
+        <Button
           key={player.uid}
-          label={player.name}
-          value={player.name}
-        />
+          onPress={() => this.setState({ seenBy: player.name, seen: true })}>
+          {player.name}
+        </Button>
       );
     });
   }
-  onPressButton() {
-    this.setState({ seen: true });
-    console.log('uid', this.props.game.uid);
-  }
+
   render() {
-    const { game } = this.props;
     return (
       <View>
         <Card>
-          <Text>{game.name}</Text>
-        </Card>
-        <Card>
           <CardSection style={styles.cardSectionStyle}>
-            <Text style={styles.pickerTextStyle}>States</Text>
+            <Text style={styles.pickerTextStyle}>
+              Select A State to Update: {this.state.selectedState}
+            </Text>
             <Picker
               selectedValue={this.state.selectedState}
               onValueChange={value => this.setState({ selectedState: value })}
             >
-              {this.renderStateList()}
+            {this.renderStateList()}
             </Picker>
           </CardSection>
           <CardSection style={styles.cardSectionStyle}>
-            <Text style={styles.pickerTextStyle}>Players</Text>
-            <Picker
-              selectedValue={this.state.seenBy}
-              onValueChange={value => this.setState({ seenBy: value })}
-            >
-              {this.renderPlayers()}
-            </Picker>
+            <Text style={styles.pickerTextStyle}>Who Saw this first?: {this.state.seenBy}</Text>
+          </CardSection>
+          <CardSection>
+            {this.renderPlayers()}
+            <Button onPress={this.onNotSeenPressButton.bind(this)}>
+              Not seen yet
+            </Button>
           </CardSection>
           <CardSection>
             <Button onPress={this.onPressButton.bind(this)}>
@@ -74,13 +75,14 @@ class AddAState extends Component {
 
 const styles = {
   pickerTextStyle: {
-    fontSize: 16,
-    paddingLeft: 20,
-    paddingTop: 5
+    fontSize: 17,
+    paddingLeft: 10,
+    paddingTop: 5,
+    paddingBottom: 5
   },
   cardSectionStyle: {
     flexDirection: 'column'
   }
 };
 
-export default AddAState;
+export default EditAState;
