@@ -38,22 +38,10 @@ class EditAState extends Component {
       );
     });
   }
-  renderImage(selectedState) {
-    if (!selectedState) { return; }
-    const { stateData } = this.props.game;
-    const selectedStateImage = _.find(stateData, { name: selectedState }).image;
-    console.log(selectedStateImage);
-    return (
-      <Image
-        style={{ width: 50, height: 50 }}
-        source={{ uri: selectedStateImage }}
-      />
-    );
-  }
+
   render() {
     return (
       <View>
-        {this.renderImage(this.state.selectedState)}
         <Card>
           <CardSection style={styles.cardSectionStyle}>
             <Text style={styles.pickerTextStyle}>

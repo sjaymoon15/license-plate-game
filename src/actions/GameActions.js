@@ -46,6 +46,8 @@ export const gameUpdate = ({ prop, value }) => {
   };
 };
 
+// export const gameSave = ({ })
+
 export const playerUpdate = (player) => {
   return {
     type: PLAYER_UPDATE,
@@ -68,5 +70,3 @@ export const deletePlayer = (players, player) => {
     payload: player
   };
 };
-
-// export const updateGameData

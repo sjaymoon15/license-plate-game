@@ -4,7 +4,7 @@ import LoginForm from './components/LoginForm';
 import GameCreate from './components/GameCreate';
 import GameList from './components/GameList';
 import GameScene from './components/GameScene';
-import EditAState from './components/AddAState';
+import EditAState from './components/EditAState';
 
 const RouterComponent = () => {
   return (
