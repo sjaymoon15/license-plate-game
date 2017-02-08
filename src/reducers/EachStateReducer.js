@@ -2,7 +2,6 @@ import { STATE_UPDATE } from '../actions/types';
 
 const INITIAL_STATE = {
   name: '',
-  abbreviation: '',
   seen: false,
   seenBy: ''
 };
