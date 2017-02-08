@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Card, CardSection, Button } from './common';
 
 class GameScene extends Component {
   onAddStateButtonPress() {
-    Actions.stateList({ game: this.props.game });
+    Actions.stateList();
   }
   render() {
-    const { name } = this.props.game;
+    const { name } = this.props.selectedGame;
     return (
       <Card>
         <CardSection>
@@ -25,4 +26,9 @@ class GameScene extends Component {
   }
 }
 
-export default GameScene;
+const mapStateToProps = (state) => {
+  const { selectedGame } = state.selectedGame;
+  return { selectedGame };
+};
+
+export default connect(mapStateToProps)(GameScene);

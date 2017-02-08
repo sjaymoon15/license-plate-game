@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { ListView } from 'react-native';
 import EachStateItem from './EachStateItem';
 
 class StateList extends Component {
   componentWillMount() {
-    const { stateData } = this.props.game;
+    const { stateData } = this.props.selectedGame;
     this.createDataSource(stateData);
   }
   componentWillReceiveProps(nextProps) {
@@ -30,4 +31,8 @@ class StateList extends Component {
   }
 }
 
-export default StateList;
+const mapStateToProps = (state) => {
+  const { selectedGame } = state.selectedGame;
+  return { selectedGame };
+};
+export default connect(mapStateToProps)(StateList);

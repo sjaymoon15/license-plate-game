@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Text, TouchableHighlight, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { CardSection } from './common';
+import { gameSelected } from '../actions';
 
 class GameItem extends Component {
   onRowPress() {
-    Actions.gameScene({ game: this.props.game });
+    const { game } = this.props;
+    this.props.gameSelected(game);
+    Actions.gameScene();
   }
   render() {
     const { name } = this.props.game;
@@ -28,4 +32,4 @@ const styles = {
     paddingLeft: 15
   }
 };
-export default GameItem;
+export default connect(null, { gameSelected })(GameItem);

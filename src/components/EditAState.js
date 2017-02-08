@@ -5,21 +5,24 @@ import { Picker, View, Text } from 'react-native';
 
 class EditAState extends Component {
   render() {
-    console.log('selectedState in EditAState', this.props.selectedState);
+    const { name, seen, seenBy } = this.props.selectedState;
+    console.log(this.props.players, this.props.selectedGame.name);
     return (
       <View>
-        {/* <Text>name: {name}</Text>
+        <Text>name: {name}</Text>
         <Text>seen: {seen}</Text>
-        <Text>seenBy: {seenBy}</Text> */}
+        <Text>seenBy: {seenBy}</Text>
       </View>
     );
   }
 }
 const mapStateToProps = (state) => {
   const { selectedState, players } = state;
+  const { selectedGame } = state.selectedGame;
   return {
     selectedState,
-    players
+    players,
+    selectedGame
   };
 };
 export default connect(mapStateToProps)(EditAState);
