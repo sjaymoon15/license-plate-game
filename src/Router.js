@@ -5,6 +5,7 @@ import GameCreate from './components/GameCreate';
 import GameList from './components/GameList';
 import GameScene from './components/GameScene';
 import EditAState from './components/EditAState';
+import StateList from './components/StateList';
 
 const RouterComponent = () => {
   return (
@@ -23,7 +24,8 @@ const RouterComponent = () => {
         />
         <Scene key='gameCreate' component={GameCreate} title='Create Game' />
         <Scene key='gameScene' component={GameScene} title='Game Status' />
-        <Scene key='addAState' component={EditAState} title='Edit a State' />
+        <Scene key='editAState' component={EditAState} title='Edit a State' />
+        <Scene key='stateList' component={StateList} title='Update Game' />
       </Scene>
     </Router>
   );

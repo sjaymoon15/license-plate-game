@@ -4,11 +4,13 @@ import GameFormReducer from './GameFormReducer';
 import GameReducer from './GameReducer';
 import StatesReducer from './StatesReducer';
 import PlayerReducer from './PlayerReducer';
+import SelectedStateReducer from './SelectedStateReducer';
 
 export default combineReducers({
   auth: AuthReducer,
   gameForm: GameFormReducer,
   gameList: GameReducer,
   stateList: StatesReducer,
-  players: PlayerReducer
+  players: PlayerReducer,
+  selectedState: SelectedStateReducer
 });

@@ -2,7 +2,8 @@ import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import {
   GAME_CREATE, GAME_UPDATE, GAMES_FETCH_SUCCESS, PLAYER_UPDATE,
-  PLAYER_ADD_SUCCESS, PLAYERS_CREATE_SUCCESS, PLAYER_DELETE, EMPTY_GAME_CREATFORM
+  PLAYER_ADD_SUCCESS, PLAYERS_CREATE_SUCCESS, PLAYER_DELETE, EMPTY_GAME_CREATFORM,
+  STATE_UPDATE, STATE_SELECTED
  } from './types';
 
 export const emptyGameCreateForm = () => {
@@ -15,7 +16,6 @@ export const gameCreate = ({ name, players, stateList }) => {
     return {
       abbreviation: eachState.abbreviation,
       name: eachState.name,
-      image: eachState.image,
       seenBy: eachState.seenBy,
       seen: eachState.seen };
   });
@@ -46,8 +46,6 @@ export const gameUpdate = ({ prop, value }) => {
   };
 };
 
-// export const gameSave = ({ })
-
 export const playerUpdate = (player) => {
   return {
     type: PLAYER_UPDATE,
@@ -68,5 +66,19 @@ export const deletePlayer = (players, player) => {
     type: PLAYER_DELETE,
     players,
     payload: player
+  };
+};
+
+export const stateUpdate = ({ prop, value }) => {
+  return {
+    type: STATE_UPDATE,
+    payload: { prop, value }
+  };
+};
+
+export const stateSelected = (selectedState) => {
+  return {
+    type: STATE_SELECTED,
+    payload: selectedState
   };
 };
