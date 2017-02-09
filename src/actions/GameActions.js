@@ -106,7 +106,7 @@ export const saveStateUpdate = ({ name, seen, seenBy, gameId, stateId }) => {
     firebase.database().ref(`/users/${currentUser.uid}/games/${gameId}/stateData/${stateId}`)
       .set({ name, seen, seenBy })
       .then(() => {
-        Actions.stateList({ type: 'reset' });
+        Actions.gameScene({ type: 'reset' });
         dispatch({ type: STATE_SAVE_SUCCESS });
       });
   };

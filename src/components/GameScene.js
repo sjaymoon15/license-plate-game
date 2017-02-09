@@ -6,7 +6,7 @@ import { Card, CardSection, Button } from './common';
 
 class GameScene extends Component {
   onAddStateButtonPress() {
-    Actions.stateList({});
+    Actions.stateList();
   }
   render() {
     const { name } = this.props.selectedGame;

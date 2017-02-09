@@ -23,7 +23,13 @@ const RouterComponent = () => {
           initial
         />
         <Scene key='gameCreate' component={GameCreate} title='Create Game' />
-        <Scene key='gameScene' component={GameScene} title='Game Status' />
+        <Scene
+          onLeft={() => Actions.gameList()}
+          leftTitle='Games'
+          key='gameScene'
+          component={GameScene}
+          title='Game Status'
+        />
         <Scene key='editAState' component={EditAState} title='Edit a State' />
         <Scene key='stateList' component={StateList} title='Update Game' />
       </Scene>

@@ -9,7 +9,7 @@ class GameItem extends Component {
   onRowPress() {
     const { game } = this.props;
     this.props.gameSelected(game);
-    Actions.gameScene();
+    Actions.gameScene({ type: 'reset' });
   }
   render() {
     const { name } = this.props.game;
