@@ -8,7 +8,7 @@ import {
 import { Card, CardSection, Button, Input } from './common';
 
 class GameCreate extends Component {
-  state = { error: '' };
+  state = { error: '', tempName: [] };
 
   componentWillMount() {
     this.props.emptyGameCreateForm();
@@ -23,15 +23,19 @@ class GameCreate extends Component {
     this.props.gameCreate({ name, players, stateList });
     this.props.playersCreated();
     this.setState({ error: '' });
+    this.setState({ tempName: [] });
   }
   onAddButtonPress() {
     const { player, players } = this.props;
-    if (players.length < 6) {
+    if (this.state.tempName.indexOf(player) !== -1) {
+      this.setState({ error: 'Player Name already exist' });
+    } else if (players.length >= 6) {
+      this.setState({ error: 'Max Number of Player: 6' });
+    } else {
       this.setState({ error: '' });
+      this.setState({ tempName: this.state.tempName.concat([player]) });
       this.props.playerUpdate(player);
       this.props.playerAdded();
-    } else {
-      this.setState({ error: 'Max Number of Player: 6' });
     }
   }
   onDeleteButtonPress(player) {

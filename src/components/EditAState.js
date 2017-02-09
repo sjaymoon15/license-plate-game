@@ -24,7 +24,7 @@ class EditAState extends Component {
     const { players } = this.props.selectedGame;
     return players.map((player) => {
       return (
-        <Button onPress={() => this.onPlayerButtonPress(player)}>
+        <Button key={player.name} onPress={() => this.onPlayerButtonPress(player)}>
           {player.name}
         </Button>
       );

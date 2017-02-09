@@ -10,7 +10,8 @@ class GameScene extends Component {
   }
   renderStatus() {
     const { players, stateData } = this.props.selectedGame;
-    console.log(Object.keys(stateData).length);
+    const totalNumStates = Object.keys(stateData).length;
+
   }
   render() {
     console.log(this.props.selectedGame);
@@ -18,7 +19,7 @@ class GameScene extends Component {
     return (
       <Card>
         <CardSection>
-          <Text>Game Name: {name}</Text>
+          <Text style={styles.titleStyle}>Game Name: {name}</Text>
         </CardSection>
         {this.renderStatus()}
         <CardSection>
@@ -31,6 +32,12 @@ class GameScene extends Component {
     );
   }
 }
+const styles = {
+  titleStyle: {
+    fontSize: 18,
+    paddingLeft: 15
+  }
+};
 
 const mapStateToProps = (state) => {
   const { selectedGame } = state;
