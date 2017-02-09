@@ -49,7 +49,7 @@ class GameCreate extends Component {
     const { players } = this.props;
     return players.map((player) => {
       return (
-        <CardSection>
+        <CardSection key={player.name}>
           <View style={styles.containerStyle}>
             <Text style={styles.textStyle}>{player.name}</Text>
             <Button onPress={() => this.onDeleteButtonPress(player)}>

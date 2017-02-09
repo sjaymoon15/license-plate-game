@@ -12,13 +12,13 @@ class EachStateItem extends Component {
     Actions.editAState({ eachState: this.props.eachState });
   }
   render() {
-    const { name } = this.props.eachState;
+    const { name, seenBy } = this.props.eachState;
     return (
         <TouchableHighlight onPress={this.onRowPress.bind(this)}>
           <View>
             <CardSection>
               <Text style={styles.titleStyle}>
-                {name}
+                {name} {seenBy ? ` ~ By: ${seenBy}` : ''}
               </Text>
             </CardSection>
           </View>
