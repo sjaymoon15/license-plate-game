@@ -16,6 +16,10 @@ class GameCreate extends Component {
 
   onCreateButtonPress() {
     const { name, stateList, players } = this.props;
+    if (players.length === 0) {
+      this.setState({ error: 'Min Number of Player: 1' });
+      return;
+    }
     this.props.gameCreate({ name, players, stateList });
     this.props.playersCreated();
     this.setState({ error: '' });

@@ -10,7 +10,6 @@ class EachStateItem extends Component {
     const selectedState = this.props.eachState;
     this.props.stateSelected(selectedState);
     Actions.editAState({ eachState: this.props.eachState });
-    console.log(this.props.eachState);
   }
   render() {
     const { name } = this.props.eachState;
