@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Card, CardSection, Button } from './common';
 
 class GameScene extends Component {
   onAddStateButtonPress() {
-    Actions.stateList();
+    Actions.stateList({});
   }
   render() {
     const { name } = this.props.selectedGame;
@@ -27,7 +27,7 @@ class GameScene extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { selectedGame } = state.selectedGame;
+  const { selectedGame } = state;
   return { selectedGame };
 };
 

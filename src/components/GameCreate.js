@@ -16,7 +16,7 @@ class GameCreate extends Component {
 
   onCreateButtonPress() {
     const { name, stateList, players } = this.props;
-    this.props.gameCreate({ name, stateList, players });
+    this.props.gameCreate({ name, players, stateList });
     this.props.playersCreated();
     this.setState({ error: '' });
   }
@@ -116,8 +116,7 @@ const styles = {
 
 const mapStateToProps = (state) => {
   const { name, player } = state.gameForm;
-  const stateList = state.stateList;
-  const players = state.players;
+  const { stateList, players } = state;
   return { name, player, stateList, players };
 };
 

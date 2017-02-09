@@ -9,7 +9,8 @@ class EachStateItem extends Component {
   onRowPress() {
     const selectedState = this.props.eachState;
     this.props.stateSelected(selectedState);
-    Actions.editAState();
+    Actions.editAState({ eachState: this.props.eachState });
+    console.log(this.props.eachState);
   }
   render() {
     const { name } = this.props.eachState;

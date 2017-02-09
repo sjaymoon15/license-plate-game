@@ -1,17 +1,20 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView } from 'react-native';
 import EachStateItem from './EachStateItem';
+import { statesFetch } from '../actions';
 
 class StateList extends Component {
   componentWillMount() {
-    const { stateData } = this.props.selectedGame;
-    this.createDataSource(stateData);
+    const { uid } = this.props.selectedGame;
+    this.props.statesFetch(uid);
+    this.createDataSource(this.props);
   }
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps);
   }
-  createDataSource(stateData) {
+  createDataSource({ stateData }) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
@@ -32,7 +35,10 @@ class StateList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { selectedGame } = state.selectedGame;
-  return { selectedGame };
+  const { realtimeStateList, selectedGame } = state;
+  const stateData = _.map(realtimeStateList, (val, uid) => {
+    return { ...val, uid };
+  });
+  return { stateData, selectedGame };
 };
-export default connect(mapStateToProps)(StateList);
+export default connect(mapStateToProps, { statesFetch })(StateList);

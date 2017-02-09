@@ -7,6 +7,7 @@ import PlayerReducer from './PlayerReducer';
 import SelectedStateReducer from './SelectedStateReducer';
 import SelectedGameReducer from './SelectedGameReducer';
 import EachStateReducer from './EachStateReducer';
+import StateListReducer from './StateListReducer';
 
 export default combineReducers({
   auth: AuthReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   players: PlayerReducer,
   selectedState: SelectedStateReducer,
   selectedGame: SelectedGameReducer,
-  eachState: EachStateReducer
+  updatedEachState: EachStateReducer,
+  realtimeStateList: StateListReducer
 });

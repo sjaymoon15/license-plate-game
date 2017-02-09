@@ -5,7 +5,7 @@ const INITIAL_STATE = {};
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GAME_SELECTED:
-      return { ...state, selectedGame: action.payload };
+      return action.payload;
     default:
       return state;
   }

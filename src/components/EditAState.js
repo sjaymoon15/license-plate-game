@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { Card, CardSection, Button } from './common';
-import { stateUpdate } from '../actions';
+import { stateUpdate, saveStateUpdate } from '../actions';
 
 class EditAState extends Component {
   componentWillMount() {
@@ -11,25 +11,35 @@ class EditAState extends Component {
     this.props.stateUpdate({ prop: 'seen', value: seen });
     this.props.stateUpdate({ prop: 'seenBy', value: seenBy });
   }
-  onButtonPress(player) {
+  onPlayerButtonPress(player) {
     this.props.stateUpdate({ prop: 'seenBy', value: player.name });
+  }
+  onSaveButtonPress() {
+    const { name, seen, seenBy } = this.props.updatedEachState;
+    this.props.saveStateUpdate({
+      name, seen, seenBy, gameId: this.props.selectedGame.uid, stateId: this.props.eachState.uid
+    });
   }
   renderPlayers() {
     const { players } = this.props.selectedGame;
     return players.map((player) => {
       return (
-        <Button onPress={() => this.onButtonPress(player)}>
+        <Button onPress={() => this.onPlayerButtonPress(player)}>
           {player.name}
         </Button>
       );
     });
   }
   render() {
-    const { name, seen, seenBy } = this.props.eachState;
-    console.log(this.props.eachState);
+    const { name, seen, seenBy } = this.props.updatedEachState;
+    const gameName = this.props.selectedGame.name;
+
     return (
       <View>
         <Card>
+          <CardSection>
+            <Text style={styles.titleStyle}>{gameName}</Text>
+          </CardSection>
           <CardSection>
             <Text style={styles.titleStyle}>{name}</Text>
           </CardSection>
@@ -40,6 +50,13 @@ class EditAState extends Component {
             {this.renderPlayers()}
             <Button onPress={() => this.props.stateUpdate({ prop: 'seenBy', value: '' })}>
               Not Seen Yet
+            </Button>
+          </CardSection>
+        </Card>
+        <Card>
+          <CardSection>
+            <Button onPress={this.onSaveButtonPress.bind(this)}>
+              Save Changes
             </Button>
           </CardSection>
         </Card>
@@ -54,12 +71,12 @@ const styles = {
   }
 };
 const mapStateToProps = (state) => {
-  const { selectedState, eachState } = state;
-  const { selectedGame } = state.selectedGame;
+  const { selectedState, updatedEachState } = state;
+  const { selectedGame } = state;
   return {
     selectedState,
     selectedGame,
-    eachState
+    updatedEachState
   };
 };
-export default connect(mapStateToProps, { stateUpdate })(EditAState);
+export default connect(mapStateToProps, { stateUpdate, saveStateUpdate })(EditAState);
