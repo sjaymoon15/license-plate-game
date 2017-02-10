@@ -5,7 +5,7 @@ import {
   gameCreate, gameUpdate, playerUpdate, playerAdded, playersCreated,
   deletePlayer, emptyGameCreateForm
 } from '../actions';
-import { Card, CardSection, Button, Input } from './common';
+import { Card, CardSection, Button, Input, Spinner } from './common';
 
 class GameCreate extends Component {
   state = { error: '', tempName: [] };
@@ -60,41 +60,49 @@ class GameCreate extends Component {
       );
     });
   }
+  renderCreateButton() {
+    if (this.props.loading) {
+      return <Spinner size='large' />;
+    }
+    return (
+      <Button onPress={this.onCreateButtonPress.bind(this)}>
+        Create
+      </Button>
+    );
+  }
   render() {
     return (
-      <View>
-        <Card>
+        <View>
+          <Card>
+            <CardSection>
+              <Input
+                label='Game Name'
+                placeholder='NY-CA Road Trip'
+                value={this.props.name}
+                onChangeText={text => this.props.gameUpdate({ prop: 'name', value: text })}
+              />
+            </CardSection>
+            <CardSection>
+              <Input
+                label='Player Name'
+                placeholder='John'
+                value={this.props.player}
+                onChangeText={text => this.props.gameUpdate({ prop: 'player', value: text })}
+              />
+            </CardSection>
+            <Text style={styles.errorTextStyle}>
+              {this.state.error}
+            </Text>
+            <CardSection>
+              <Button onPress={this.onAddButtonPress.bind(this)}>
+                Add Player
+              </Button>
+            </CardSection>
+          </Card>
+          <Card>
+            {this.renderAddedPlayers()}
           <CardSection>
-            <Input
-              label='Game Name'
-              placeholder='NY-CA Road Trip'
-              value={this.props.name}
-              onChangeText={text => this.props.gameUpdate({ prop: 'name', value: text })}
-            />
-          </CardSection>
-          <CardSection>
-            <Input
-              label='Player Name'
-              placeholder='John'
-              value={this.props.player}
-              onChangeText={text => this.props.gameUpdate({ prop: 'player', value: text })}
-            />
-          </CardSection>
-          <Text style={styles.errorTextStyle}>
-            {this.state.error}
-          </Text>
-          <CardSection>
-            <Button onPress={this.onAddButtonPress.bind(this)}>
-              Add Player
-            </Button>
-          </CardSection>
-        </Card>
-        <Card>
-          {this.renderAddedPlayers()}
-          <CardSection>
-            <Button onPress={this.onCreateButtonPress.bind(this)}>
-              Create
-            </Button>
+            {this.renderCreateButton()}
           </CardSection>
         </Card>
       </View>
@@ -123,9 +131,9 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { name, player } = state.gameForm;
+  const { name, player, loading } = state.gameForm;
   const { stateList, players } = state;
-  return { name, player, stateList, players };
+  return { name, player, stateList, players, loading };
 };
 
 export default connect(mapStateToProps,
