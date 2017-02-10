@@ -39,6 +39,17 @@ export const gamesFetch = () => {
   };
 };
 
+export const gameDelete = (gameId) => {
+  const { currentUser } = firebase.auth();
+  return () => {
+    firebase.database().ref(`/users/${currentUser.uid}/games/${gameId}`)
+    .remove()
+    .then(() => {
+      Actions.gameList({ type: 'reset' });
+    });
+  };
+};
+
 export const statesFetch = (gameId) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
@@ -68,8 +79,6 @@ export const playerUpdate = (player) => {
     payload: player
   };
 };
-
-// export const playersUpdate =
 
 export const playerAdded = () => {
   return { type: PLAYER_ADD_SUCCESS };

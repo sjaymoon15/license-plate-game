@@ -107,7 +107,7 @@ const styles = {
     fontSize: 18,
     alignSelf: 'center',
     paddingLeft: 15,
-    flex: 2
+    flex: 3
   },
   containerStyle: {
     height: 40,
