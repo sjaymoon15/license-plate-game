@@ -18,5 +18,5 @@ export default combineReducers({
   selectedState: SelectedStateReducer,
   selectedGame: SelectedGameReducer,
   updatedEachState: EachStateReducer,
-  realtimeStateList: StateListReducer
+  realtimeGame: StateListReducer
 });

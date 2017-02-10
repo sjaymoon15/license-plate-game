@@ -7,8 +7,6 @@ import { statesFetch } from '../actions';
 
 class StateList extends Component {
   componentWillMount() {
-    const { uid } = this.props.selectedGame;
-    this.props.statesFetch(uid);
     this.createDataSource(this.props);
   }
   componentWillReceiveProps(nextProps) {
@@ -35,8 +33,8 @@ class StateList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { realtimeStateList, selectedGame } = state;
-  const stateData = _.map(realtimeStateList, (val, uid) => {
+  const { realtimeGame, selectedGame } = state;
+  const stateData = _.map(realtimeGame.stateData, (val, uid) => {
     return { ...val, uid };
   });
   return { stateData, selectedGame };

@@ -29,7 +29,6 @@ export const gameCreate = ({ name, players, stateList }) => {
     };
 };
 
-
 export const gamesFetch = () => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
@@ -43,7 +42,7 @@ export const gamesFetch = () => {
 export const statesFetch = (gameId) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/games/${gameId}/stateData`)
+    firebase.database().ref(`/users/${currentUser.uid}/games/${gameId}`)
     .on('value', snapshot => {
       dispatch({ type: STATES_FETCH_SUCCESS, payload: snapshot.val() });
     });
@@ -69,6 +68,8 @@ export const playerUpdate = (player) => {
     payload: player
   };
 };
+
+// export const playersUpdate =
 
 export const playerAdded = () => {
   return { type: PLAYER_ADD_SUCCESS };
