@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Card, CardSection, Button } from './common';
 import { statesFetch } from '../actions';
@@ -20,9 +20,9 @@ class GameScene extends Component {
     const totalNumStates = Object.keys(stateData).length;
     return players.map((player) => {
       return (
-        <CardSection>
-          <Text>{player.name}</Text>
-          <Text>{player.numStates}/{totalNumStates}</Text>
+        <CardSection style={styles.cardSectionsStyle}>
+          <Text style={styles.contentStyle}>{player.name}</Text>
+          <Text style={styles.contentStyle}>{player.numStates} / {totalNumStates}</Text>
         </CardSection>
       );
     });
@@ -32,8 +32,8 @@ class GameScene extends Component {
     const { name } = this.props.realtimeGame;
     return (
       <Card>
-        <CardSection>
-          <Text style={styles.titleStyle}>Game Name: {name}</Text>
+        <CardSection style={styles.cardSectionsStyle}>
+          <Text style={styles.titleStyle}>{name}</Text>
         </CardSection>
         {this.renderStatus()}
         <CardSection>
@@ -48,8 +48,13 @@ class GameScene extends Component {
 }
 const styles = {
   titleStyle: {
-    fontSize: 18,
-    paddingLeft: 15
+    fontSize: 22
+  },
+  cardSectionsStyle: {
+    justifyContent: 'space-around'
+  },
+  contentStyle: {
+    fontSize: 18
   }
 };
 
