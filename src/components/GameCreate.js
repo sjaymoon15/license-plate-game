@@ -27,7 +27,9 @@ class GameCreate extends Component {
   }
   onAddButtonPress() {
     const { player, players } = this.props;
-    if (this.state.tempName.indexOf(player) !== -1) {
+    if (player.length > 10) {
+      this.setState({ error: 'Please use a name under 10 characters' });
+    } else if (this.state.tempName.indexOf(player) !== -1) {
       this.setState({ error: 'Player Name already exist' });
     } else if (players.length >= 6) {
       this.setState({ error: 'Max Number of Player: 6' });
