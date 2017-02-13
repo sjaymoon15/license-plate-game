@@ -20,7 +20,7 @@ class GameScene extends Component {
     const totalNumStates = Object.keys(stateData).length;
     return players.map((player) => {
       return (
-        <CardSection key={player.name} style={styles.cardSectionsStyle}>
+        <CardSection key={player.name} style={styles.containerStyle}>
           <Text style={styles.contentStyle}>{player.name}</Text>
           <Text style={styles.contentStyle}>{player.numStates} / {totalNumStates}</Text>
         </CardSection>
@@ -65,10 +65,15 @@ const styles = {
     justifyContent: 'space-around'
   },
   contentStyle: {
-    fontSize: 18
+    fontSize: 18,
+    paddingLeft: 20,
+    paddingRight: 20
   },
   smallContentStyle: {
     fontSize: 15
+  },
+  containerStyle: {
+    justifyContent: 'space-between'
   }
 };
 
