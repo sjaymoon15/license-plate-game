@@ -27,6 +27,17 @@ class GameScene extends Component {
       );
     });
   }
+  renderCreatedTime() {
+    const { createdAt } = this.props.realtimeGame;
+    if (!createdAt) { return; }
+    const timeStampRaw = new Date(createdAt);
+    const timeStampStr = timeStampRaw.toISOString().slice(0, 10);
+    return (
+      <CardSection style={styles.cardSectionsStyle}>
+        <Text style={styles.smallContentStyle}>Created On {timeStampStr}</Text>
+      </CardSection>
+    );
+  }
   render() {
     const { name } = this.props.realtimeGame;
     return (
@@ -34,6 +45,7 @@ class GameScene extends Component {
         <CardSection style={styles.cardSectionsStyle}>
           <Text style={styles.titleStyle}>{name}</Text>
         </CardSection>
+        {this.renderCreatedTime()}
         {this.renderStatus()}
         <CardSection>
           <Button onPress={this.onAddStateButtonPress.bind(this)}>
@@ -54,6 +66,9 @@ const styles = {
   },
   contentStyle: {
     fontSize: 18
+  },
+  smallContentStyle: {
+    fontSize: 15
   }
 };
 

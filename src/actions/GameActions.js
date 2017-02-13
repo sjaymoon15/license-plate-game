@@ -16,7 +16,7 @@ export const gameCreate = ({ name, players, stateList }) => {
   return (dispatch) => {
     dispatch({ type: GAME_CREATE_START });
     firebase.database().ref(`/users/${currentUser.uid}/games`)
-      .push({ name, players })
+      .push({ name, players, createdAt: firebase.database.ServerValue.TIMESTAMP })
       .then((newGame) => {
         const gameId = newGame.path.o[3];
         stateList.forEach((eachStateObj) => {

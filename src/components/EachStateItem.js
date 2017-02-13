@@ -17,9 +17,14 @@ class EachStateItem extends Component {
         <TouchableHighlight onPress={this.onRowPress.bind(this)}>
           <View>
             <CardSection>
-              <Text style={styles.titleStyle}>
-                {name} {seenBy ? ` ~ By: ${seenBy}` : ''}
-              </Text>
+              <View style={styles.containerStyle}>
+                <Text style={styles.titleStyle}>
+                  {name}
+                </Text>
+                <Text style={styles.titleStyle}>
+                  {seenBy ? `Found By: ${seenBy}` : ''}
+                </Text>
+              </View>
             </CardSection>
           </View>
         </TouchableHighlight>
@@ -30,6 +35,9 @@ const styles = {
   titleStyle: {
     fontSize: 18,
     paddingLeft: 15
+  },
+  containerStyle: {
+    justifyContent: 'space-between'
   }
 };
 
