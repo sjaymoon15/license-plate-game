@@ -30,6 +30,16 @@ class EditAState extends Component {
       );
     });
   }
+  renderUpdatedTime() {
+    const { updatedAt } = this.props.eachState;
+    console.log(updatedAt);
+    if (!updatedAt) { return; }
+    const timeStampRaw = new Date(updatedAt);
+    const timeStampStr = timeStampRaw.toISOString().slice(0, 10);
+    return (
+      <Text style={styles.contentStyle}>Updated On {timeStampStr}</Text>
+    );
+  }
   render() {
     const { name, seen, seenBy } = this.props.updatedEachState;
     const gameName = this.props.selectedGame.name;
@@ -37,14 +47,15 @@ class EditAState extends Component {
     return (
       <View>
         <Card>
-          <CardSection>
+          <CardSection style={styles.cardSectionsStyle}>
             <Text style={styles.titleStyle}>{gameName}</Text>
           </CardSection>
-          <CardSection>
+          <CardSection style={styles.cardSectionsStyle}>
             <Text style={styles.titleStyle}>{name}</Text>
           </CardSection>
-          <CardSection>
-            <Text style={styles.titleStyle}>Seen By: {seenBy ? seenBy : ' Not Seen Yet'}</Text>
+          <CardSection style={styles.containerStyle}>
+            <Text style={styles.contentStyle}>{seenBy?`Found By ${seenBy}`:''}</Text>
+            {this.renderUpdatedTime()}
           </CardSection>
           <CardSection>
             {this.renderPlayers()}
@@ -66,8 +77,16 @@ class EditAState extends Component {
 }
 const styles = {
   titleStyle: {
-    fontSize: 18,
-    paddingLeft: 15
+    fontSize: 18
+  },
+  cardSectionsStyle: {
+    justifyContent: 'space-around'
+  },
+  contentStyle: {
+    fontSize: 15
+  },
+  containerStyle: {
+    justifyContent: 'space-between'
   }
 };
 const mapStateToProps = (state) => {

@@ -116,7 +116,7 @@ export const saveStateUpdate = ({ name, seen, seenBy, gameId, stateId }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/games/${gameId}/stateData/${stateId}`)
-      .set({ name, seen, seenBy })
+      .set({ name, seen, seenBy, updatedAt: firebase.database.ServerValue.TIMESTAMP })
       .then(() => {
         Actions.gameScene({ type: 'reset' });
         dispatch({ type: STATE_SAVE_SUCCESS });

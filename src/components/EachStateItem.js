@@ -11,20 +11,19 @@ class EachStateItem extends Component {
     this.props.stateSelected(selectedState);
     Actions.editAState({ eachState: this.props.eachState });
   }
+  
   render() {
     const { name, seenBy } = this.props.eachState;
     return (
         <TouchableHighlight onPress={this.onRowPress.bind(this)}>
           <View>
-            <CardSection>
-              <View style={styles.containerStyle}>
-                <Text style={styles.titleStyle}>
-                  {name}
-                </Text>
-                <Text style={styles.titleStyle}>
-                  {seenBy ? `Found By: ${seenBy}` : ''}
-                </Text>
-              </View>
+            <CardSection style={styles.containerStyle}>
+              <Text style={styles.titleStyle}>
+                {name}
+              </Text>
+              <Text style={styles.contentStyle}>
+                {seenBy ? `Found By: ${seenBy}` : ''}
+              </Text>
             </CardSection>
           </View>
         </TouchableHighlight>
@@ -34,10 +33,15 @@ class EachStateItem extends Component {
 const styles = {
   titleStyle: {
     fontSize: 18,
-    paddingLeft: 15
+    paddingLeft: 20
   },
   containerStyle: {
     justifyContent: 'space-between'
+  },
+  contentStyle: {
+    fontSize: 15,
+    alignSelf: 'flex-end',
+    paddingRight: 20
   }
 };
 
