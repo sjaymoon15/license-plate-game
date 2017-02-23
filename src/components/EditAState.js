@@ -32,7 +32,6 @@ class EditAState extends Component {
   }
   renderUpdatedTime() {
     const { updatedAt } = this.props.eachState;
-    console.log(updatedAt);
     if (!updatedAt) { return; }
     const timeStampRaw = new Date(updatedAt);
     const timeStampStr = timeStampRaw.toISOString().slice(0, 10);

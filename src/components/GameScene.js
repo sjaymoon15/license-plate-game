@@ -39,7 +39,7 @@ class GameScene extends Component {
     );
   }
   render() {
-    const { name } = this.props.realtimeGame;
+    const { name } = this.props.selectedGame;
     return (
       <Card>
         <CardSection style={styles.cardSectionsStyle}>
