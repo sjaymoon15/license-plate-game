@@ -40,7 +40,7 @@ class EditAState extends Component {
     );
   }
   render() {
-    const { name, seen, seenBy } = this.props.updatedEachState;
+    const { name, seenBy } = this.props.updatedEachState;
     const gameName = this.props.selectedGame.name;
 
     return (
@@ -53,7 +53,7 @@ class EditAState extends Component {
             <Text style={styles.titleStyle}>{name}</Text>
           </CardSection>
           <CardSection style={styles.containerStyle}>
-            <Text style={styles.contentStyle}>{seenBy?`Found By ${seenBy}`:''}</Text>
+            <Text style={styles.contentStyle}>{seenBy ? `Found By ${seenBy}` : '' }</Text>
             {this.renderUpdatedTime()}
           </CardSection>
           <CardSection>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { BarChart } from 'react-native-charts';
 import { Card, CardSection, Button } from './common';
 import { statesFetch } from '../actions';
 
@@ -18,6 +19,7 @@ class GameScene extends Component {
     if (!players) { return; }
     getCurrentPlayers(players, stateData);
     const totalNumStates = Object.keys(stateData).length;
+
     return players.map((player) => {
       return (
         <CardSection key={player.name} style={styles.containerStyle}>
@@ -26,6 +28,32 @@ class GameScene extends Component {
         </CardSection>
       );
     });
+  }
+  renderBarChart() {
+    const { players } = this.props.realtimeGame;
+    if (!players) { return; }
+    let barChartData = [];
+    players.forEach((player) => {
+      barChartData.push({
+        fillColor: player.color,
+        data: [{ value: player.numStates }]
+      });
+    });
+    console.log(players);
+    console.log(barChartData);
+    return (
+      <BarChart
+        dataSets={barChartData}
+        graduation={1}
+        horizontal={false}
+        showGrid={true}
+        barSpacing={10}
+        style={{
+          height: 300,
+          margin: 15,
+        }}
+      />
+    );
   }
   renderCreatedTime() {
     const { createdAt } = this.props.realtimeGame;
@@ -47,6 +75,7 @@ class GameScene extends Component {
         </CardSection>
         {this.renderCreatedTime()}
         {this.renderStatus()}
+        {this.renderBarChart()}
         <CardSection>
           <Button onPress={this.onAddStateButtonPress.bind(this)}>
             Edit State
