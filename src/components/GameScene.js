@@ -26,7 +26,8 @@ class GameScene extends Component {
               backgroundColor: player.color,
               height: 20,
               width: 20,
-              marginLeft: 15,
+              marginLeft: 20,
+              marginRight: 20,
               borderRadius: 5 }}
           />
           <Text style={styles.contentStyle}>{player.name}</Text>
