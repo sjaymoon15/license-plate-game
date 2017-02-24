@@ -27,6 +27,8 @@ class GameCreate extends Component {
   }
   onAddButtonPress() {
     const { player, players } = this.props;
+    const colors = ['#DAF7A6', '#FFC300', '#FF5733', '#C70039', '#900C3F', '#581845'];
+    const colorIndex = players.length;
     if (player.length > 10) {
       this.setState({ error: 'Please use a name under 10 characters' });
     } else if (this.state.tempName.indexOf(player) !== -1) {
@@ -36,7 +38,7 @@ class GameCreate extends Component {
     } else {
       this.setState({ error: '' });
       this.setState({ tempName: this.state.tempName.concat([player]) });
-      this.props.playerUpdate(player);
+      this.props.playerUpdate(player, colors[colorIndex]);
       this.props.playerAdded();
     }
   }

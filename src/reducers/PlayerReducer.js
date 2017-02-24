@@ -9,7 +9,7 @@ const INITIAL_STATE = [];
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case PLAYER_UPDATE:
-      return [...state, { name: action.payload }];
+      return [...state, { name: action.payload.player, color: action.payload.color }];
     case PLAYERS_CREATE_SUCCESS:
       return INITIAL_STATE;
     case PLAYER_DELETE:

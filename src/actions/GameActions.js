@@ -4,7 +4,7 @@ import {
   GAME_CREATE, GAME_UPDATE, GAMES_FETCH_SUCCESS, PLAYER_UPDATE,
   PLAYER_ADD_SUCCESS, PLAYERS_CREATE_SUCCESS, PLAYER_DELETE, EMPTY_GAME_CREATFORM,
   STATE_UPDATE, STATE_SELECTED, GAME_SELECTED, STATE_SAVE_SUCCESS, STATES_FETCH_SUCCESS,
-  GAME_CREATE_START, GAME_CREATE_FINISH
+  GAME_CREATE_START, GAME_CREATE_FINISH, GAME_DELETED
  } from './types';
 
 export const emptyGameCreateForm = () => {
@@ -43,10 +43,11 @@ export const gamesFetch = () => {
 
 export const gameDelete = (gameId) => {
   const { currentUser } = firebase.auth();
-  return () => {
+  return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/games/${gameId}`)
     .remove()
     .then(() => {
+      dispatch({ type: GAME_DELETED });
       Actions.gameList({ type: 'reset' });
     });
   };
@@ -75,10 +76,10 @@ export const gameSelected = (game) => {
   };
 };
 
-export const playerUpdate = (player) => {
+export const playerUpdate = (player, color) => {
   return {
     type: PLAYER_UPDATE,
-    payload: player
+    payload: { player, color }
   };
 };
 

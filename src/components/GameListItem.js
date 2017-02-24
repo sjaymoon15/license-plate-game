@@ -14,7 +14,6 @@ class GameItem extends Component {
   }
   onDeleteButtonPress(gameId) {
     this.props.gameDelete(gameId);
-    console.log(gameId);
   }
   onAccept() {
     const { uid } = this.props.game;

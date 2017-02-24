@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { BarChart } from 'react-native-charts';
 import { Card, CardSection, Button } from './common';
@@ -16,13 +16,18 @@ class GameScene extends Component {
   }
   renderStatus() {
     const { players, stateData } = this.props.realtimeGame;
-    if (!players) { return; }
     getCurrentPlayers(players, stateData);
     const totalNumStates = Object.keys(stateData).length;
-
     return players.map((player) => {
       return (
         <CardSection key={player.name} style={styles.containerStyle}>
+          <View
+            style={{
+              backgroundColor: player.color,
+              height: 20,
+              width: 20,
+              marginLeft: 15 }}
+          />
           <Text style={styles.contentStyle}>{player.name}</Text>
           <Text style={styles.contentStyle}>{player.numStates} / {totalNumStates}</Text>
         </CardSection>
@@ -31,7 +36,6 @@ class GameScene extends Component {
   }
   renderBarChart() {
     const { players } = this.props.realtimeGame;
-    if (!players) { return; }
     let barChartData = [];
     players.forEach((player) => {
       barChartData.push({
@@ -39,8 +43,6 @@ class GameScene extends Component {
         data: [{ value: player.numStates }]
       });
     });
-    console.log(players);
-    console.log(barChartData);
     return (
       <BarChart
         dataSets={barChartData}
@@ -49,15 +51,14 @@ class GameScene extends Component {
         showGrid={true}
         barSpacing={10}
         style={{
-          height: 300,
+          height: 250,
           margin: 15,
         }}
       />
     );
   }
   renderCreatedTime() {
-    const { createdAt } = this.props.realtimeGame;
-    if (!createdAt) { return; }
+    const { createdAt } = this.props.selectedGame;
     const timeStampRaw = new Date(createdAt);
     const timeStampStr = timeStampRaw.toISOString().slice(0, 10);
     return (
@@ -67,6 +68,9 @@ class GameScene extends Component {
     );
   }
   render() {
+    if (this.props.realtimeGame === null || !this.props.realtimeGame.players) {
+      return (<View></View>);
+    }
     const { name } = this.props.selectedGame;
     return (
       <Card>
