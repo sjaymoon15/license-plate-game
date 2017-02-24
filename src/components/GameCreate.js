@@ -56,6 +56,14 @@ class GameCreate extends Component {
         <CardSection key={player.name}>
           <View style={styles.containerStyle}>
             <Text style={styles.textStyle}>{player.name}</Text>
+            <View
+              style={{
+                backgroundColor: player.color,
+                height: 30,
+                width: 30,
+                marginRight: 20,
+                borderRadius: 5 }}
+            />
             <Button onPress={() => this.onDeleteButtonPress(player)}>
               Delete
             </Button>
