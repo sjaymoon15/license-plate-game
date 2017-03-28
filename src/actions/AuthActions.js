@@ -26,7 +26,6 @@ export const passwordChanged = (text) => {
 
 export const loginUser = ({ email, password }) => {
   return (dispatch) => {
-    console.log('password', password);
     if (!password) {
       dispatch({ type: LOGIN_USER_FAIL });
     } else {
