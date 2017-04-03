@@ -20,6 +20,10 @@ class GameCreate extends Component {
       this.setState({ error: 'Min Number of Player: 1' });
       return;
     }
+    if (!name) {
+      this.setState({ error: 'Please provide a game name' });
+      return;
+    }
     this.props.gameCreate({ name, players, stateList });
     this.props.playersCreated();
     this.setState({ error: '' });
