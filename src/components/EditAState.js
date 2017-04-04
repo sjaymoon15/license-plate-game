@@ -5,6 +5,26 @@ import { Card, CardSection, Button } from './common';
 import { stateUpdate, saveStateUpdate } from '../actions';
 
 class EditAState extends Component {
+  state = {
+    latitude: null,
+    logitude: null,
+    error: null
+  };
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null,
+        });
+      },
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+  }
+
   componentWillMount() {
     const { name, seen, seenBy } = this.props.selectedState;
     this.props.stateUpdate({ prop: 'name', value: name });
@@ -70,7 +90,13 @@ class EditAState extends Component {
             </Button>
           </CardSection>
         </Card>
+        <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>Latitude: {this.state.latitude}</Text>
+          <Text>Longitude: {this.state.longitude}</Text>
+          {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
+        </View>
       </View>
+
     );
   }
 }
