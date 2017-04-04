@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
+import MapView from 'react-native-maps';
 import { Card, CardSection, Button } from './common';
 import { stateUpdate, saveStateUpdate } from '../actions';
 
@@ -64,7 +65,7 @@ class EditAState extends Component {
     const gameName = this.props.selectedGame.name;
 
     return (
-      <View>
+      <View style={styles.viewStyle}>
         <Card>
           <CardSection style={styles.cardSectionsStyle}>
             <Text style={styles.titleStyle}>{gameName}</Text>
@@ -90,17 +91,29 @@ class EditAState extends Component {
             </Button>
           </CardSection>
         </Card>
-        <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
+        {/* <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Latitude: {this.state.latitude}</Text>
           <Text>Longitude: {this.state.longitude}</Text>
           {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
-        </View>
+        </View> */}
+        <MapView
+          style={{ position: 'absolute', height: 300, left: 10, right: 10, bottom: 20 }}
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
       </View>
 
     );
   }
 }
 const styles = {
+  viewStyle: {
+    flex: 1
+  },
   titleStyle: {
     fontSize: 18
   },
