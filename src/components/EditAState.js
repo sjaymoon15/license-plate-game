@@ -79,7 +79,7 @@ class EditAState extends Component {
           <CardSection>
             {this.renderPlayers()}
             <Button onPress={() => this.props.stateUpdate({ prop: 'seenBy', value: '' })}>
-              Not Seen Yet
+              Not Found
             </Button>
           </CardSection>
         </Card>
