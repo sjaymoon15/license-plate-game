@@ -12,7 +12,25 @@ class EditAState extends Component {
     error: null
   };
 
-  componentDidMount() {
+  // componentDidMount() {
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       this.setState({
+  //         latitude: position.coords.latitude,
+  //         longitude: position.coords.longitude,
+  //         error: null,
+  //       });
+  //     },
+  //     (error) => this.setState({ error: error.message }),
+  //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+  //   );
+  // }
+
+  componentWillMount() {
+    const { name, seen, seenBy } = this.props.selectedState;
+    this.props.stateUpdate({ prop: 'name', value: name });
+    this.props.stateUpdate({ prop: 'seen', value: seen });
+    this.props.stateUpdate({ prop: 'seenBy', value: seenBy });
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({
@@ -24,13 +42,6 @@ class EditAState extends Component {
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-  }
-
-  componentWillMount() {
-    const { name, seen, seenBy } = this.props.selectedState;
-    this.props.stateUpdate({ prop: 'name', value: name });
-    this.props.stateUpdate({ prop: 'seen', value: seen });
-    this.props.stateUpdate({ prop: 'seenBy', value: seenBy });
   }
   onPlayerButtonPress(player) {
     this.props.stateUpdate({ prop: 'seenBy', value: player.name });
@@ -58,6 +69,21 @@ class EditAState extends Component {
     const timeStampStr = timeStampRaw.toISOString().slice(0, 10);
     return (
       <Text style={styles.contentStyle}>Updated On {timeStampStr}</Text>
+    );
+  }
+  renderMapView() {
+    const { latitude, longitude } = this.state;
+    if (!latitude || !longitude) { return; };
+    return (
+      <MapView
+        style={{ position: 'absolute', height: 300, left: 10, right: 10, bottom: 20 }}
+        initialRegion={{
+          latitude,
+          longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
     );
   }
   render() {
@@ -96,15 +122,7 @@ class EditAState extends Component {
           <Text>Longitude: {this.state.longitude}</Text>
           {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
         </View> */}
-        <MapView
-          style={{ position: 'absolute', height: 300, left: 10, right: 10, bottom: 20 }}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        />
+        {this.renderMapView()}
       </View>
 
     );
