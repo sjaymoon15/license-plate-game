@@ -12,20 +12,6 @@ class EditAState extends Component {
     error: null
   };
 
-  // componentDidMount() {
-  //   navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       this.setState({
-  //         latitude: position.coords.latitude,
-  //         longitude: position.coords.longitude,
-  //         error: null,
-  //       });
-  //     },
-  //     (error) => this.setState({ error: error.message }),
-  //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-  //   );
-  // }
-
   componentWillMount() {
     const { name, seen, seenBy } = this.props.selectedState;
     this.props.stateUpdate({ prop: 'name', value: name });
@@ -33,6 +19,7 @@ class EditAState extends Component {
     this.props.stateUpdate({ prop: 'seenBy', value: seenBy });
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        console.log(position.coords);
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -72,17 +59,19 @@ class EditAState extends Component {
     );
   }
   renderMapView() {
-    const { latitude, longitude } = this.state;
+    const { latitude, longitude, error } = this.state;
+    console.log(error);
     if (!latitude || !longitude) { return; };
     return (
       <MapView
         style={{ position: 'absolute', height: 300, left: 10, right: 10, bottom: 20 }}
-        initialRegion={{
-          latitude,
-          longitude,
+        region={{
+          latitude: latitude,
+          longitude: longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
+        showsUserLocation={true}
       />
     );
   }
