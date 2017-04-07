@@ -3,32 +3,16 @@ import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import MapView from 'react-native-maps';
 import { Card, CardSection, Button } from './common';
-import { stateUpdate, saveStateUpdate } from '../actions';
+import { stateUpdate, saveStateUpdate, locationDetected } from '../actions';
 
 class EditAState extends Component {
-  state = {
-    latitude: null,
-    logitude: null,
-    error: null
-  };
 
   componentWillMount() {
     const { name, seen, seenBy } = this.props.selectedState;
     this.props.stateUpdate({ prop: 'name', value: name });
     this.props.stateUpdate({ prop: 'seen', value: seen });
     this.props.stateUpdate({ prop: 'seenBy', value: seenBy });
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        console.log(position.coords);
-        this.setState({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          error: null,
-        });
-      },
-      (error) => this.setState({ error: error.message }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
+    this.props.locationDetected();
   }
   onPlayerButtonPress(player) {
     this.props.stateUpdate({ prop: 'seenBy', value: player.name });
@@ -59,8 +43,7 @@ class EditAState extends Component {
     );
   }
   renderMapView() {
-    const { latitude, longitude, error } = this.state;
-    console.log(error);
+    const { latitude, longitude, error } = this.props.currentLoc;
     if (!latitude || !longitude) { return; };
     return (
       <MapView
@@ -135,12 +118,15 @@ const styles = {
   }
 };
 const mapStateToProps = (state) => {
-  const { selectedState, updatedEachState } = state;
-  const { selectedGame } = state;
+  const { selectedState, updatedEachState, selectedGame, currentLoc } = state;
   return {
     selectedState,
     selectedGame,
-    updatedEachState
+    updatedEachState,
+    currentLoc
   };
 };
-export default connect(mapStateToProps, { stateUpdate, saveStateUpdate })(EditAState);
+export default connect(mapStateToProps, {
+  stateUpdate,
+  saveStateUpdate,
+  locationDetected })(EditAState);

@@ -4,7 +4,8 @@ import {
   GAME_CREATE, GAME_UPDATE, GAMES_FETCH_SUCCESS, PLAYER_UPDATE,
   PLAYER_ADD_SUCCESS, PLAYERS_CREATE_SUCCESS, PLAYER_DELETE, EMPTY_GAME_CREATFORM,
   STATE_UPDATE, STATE_SELECTED, GAME_SELECTED, STATE_SAVE_SUCCESS, STATES_FETCH_SUCCESS,
-  GAME_CREATE_START, GAME_CREATE_FINISH, GAME_DELETED
+  GAME_CREATE_START, GAME_CREATE_FINISH, GAME_DELETED, LOCATION_DETECTED,
+  LOCATION_DETECT_FAILED
  } from './types';
 
 export const emptyGameCreateForm = () => {
@@ -124,3 +125,31 @@ export const saveStateUpdate = ({ name, seen, seenBy, gameId, stateId }) => {
       });
   };
 };
+
+export const locationDetected = () => {
+  return (dispatch) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position.coords);
+        dispatch({
+          type: LOCATION_DETECTED,
+          payload: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            error: null
+          }
+        })
+      },
+      (error) => {
+        console.log(error);
+        dispatch({
+          type: LOCATION_DETECT_FAILED,
+          payload: {
+            error: error.message
+          }
+        })
+      },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+  };
+}
