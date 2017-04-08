@@ -43,19 +43,22 @@ class EditAState extends Component {
     );
   }
   renderMapView() {
-    const { latitude, longitude, error } = this.props.currentLoc;
+    const { latitude, longitude } = this.props.currentLoc;
     if (!latitude || !longitude) { return; };
     return (
-      <MapView
-        style={styles.mapViewStyle}
-        region={{
-          latitude: latitude,
-          longitude: longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-        showsUserLocation={true}
-      />
+      <View style={styles.viewStyle}>
+        <MapView
+          style={styles.mapViewStyle}
+          region={{
+            latitude: latitude,
+            longitude: longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          showsUserLocation={true}
+        />
+        <Text style={styles.errorTextStyle}>{error}</Text>
+      </View>
     );
   }
   render() {
@@ -121,7 +124,12 @@ const styles = {
     height: 300,
     left: 10,
     right: 10,
-    bottom: 20 
+    bottom: 20
+  },
+  errorTextStyle: {
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'red'
   }
 };
 const mapStateToProps = (state) => {
