@@ -47,7 +47,7 @@ class EditAState extends Component {
     if (!latitude || !longitude) { return; };
     return (
       <MapView
-        style={{ position: 'absolute', height: 300, left: 10, right: 10, bottom: 20 }}
+        style={styles.mapViewStyle}
         region={{
           latitude: latitude,
           longitude: longitude,
@@ -115,6 +115,13 @@ const styles = {
   },
   containerStyle: {
     justifyContent: 'space-between'
+  },
+  mapViewStyle: {
+    position: 'absolute',
+    height: 300,
+    left: 10,
+    right: 10,
+    bottom: 20 
   }
 };
 const mapStateToProps = (state) => {
