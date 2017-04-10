@@ -43,7 +43,7 @@ class EditAState extends Component {
     );
   }
   renderMapView() {
-    const { latitude, longitude } = this.props.currentLoc;
+    const { latitude, longitude, error } = this.props.currentLoc;
     if (!latitude || !longitude) { return; };
     return (
       <View style={styles.viewStyle}>
