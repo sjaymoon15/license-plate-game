@@ -16,12 +16,13 @@ class EditAState extends Component {
   }
   onPlayerButtonPress(player) {
     this.props.stateUpdate({ prop: 'seenBy', value: player.name });
+    this.props.stateUpdate({ prop: 'foundByColor', value: player.color });
   }
   onSaveButtonPress() {
-    const { name, seen, seenBy } = this.props.updatedEachState;
+    const { name, seen, seenBy, foundByColor } = this.props.updatedEachState;
     const { latitude, longitude } = this.props.currentLoc;
     const updatedInfo = {
-      name, seen, seenBy,
+      name, seen, seenBy, foundByColor,
       gameId: this.props.selectedGame.uid,
       stateId: this.props.eachState.uid,
       foundLatitude: latitude,

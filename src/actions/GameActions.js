@@ -120,6 +120,7 @@ export const saveStateUpdate = (updatedInfo) => {
     seenBy,
     gameId,
     stateId,
+    foundByColor,
     foundLatitude,
     foundLongitude } = updatedInfo;
   const { currentUser } = firebase.auth();
@@ -128,8 +129,9 @@ export const saveStateUpdate = (updatedInfo) => {
       .set({ name,
         seen,
         seenBy,
+        foundByColor,
         foundLatitude,
-        foundLongitude, 
+        foundLongitude,
         updatedAt: firebase.database.ServerValue.TIMESTAMP })
       .then(() => {
         Actions.gameScene({ type: 'reset' });
