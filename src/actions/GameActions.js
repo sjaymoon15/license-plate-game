@@ -114,11 +114,23 @@ export const stateSelected = (selectedState) => {
   };
 };
 
-export const saveStateUpdate = ({ name, seen, seenBy, gameId, stateId }) => {
+export const saveStateUpdate = (updatedInfo) => {
+  const { name,
+    seen,
+    seenBy,
+    gameId,
+    stateId,
+    foundLatitude,
+    foundLongitude } = updatedInfo;
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/games/${gameId}/stateData/${stateId}`)
-      .set({ name, seen, seenBy, updatedAt: firebase.database.ServerValue.TIMESTAMP })
+      .set({ name,
+        seen,
+        seenBy,
+        foundLatitude,
+        foundLongitude, 
+        updatedAt: firebase.database.ServerValue.TIMESTAMP })
       .then(() => {
         Actions.gameScene({ type: 'reset' });
         dispatch({ type: STATE_SAVE_SUCCESS });

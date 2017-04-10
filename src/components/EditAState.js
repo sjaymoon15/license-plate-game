@@ -19,9 +19,15 @@ class EditAState extends Component {
   }
   onSaveButtonPress() {
     const { name, seen, seenBy } = this.props.updatedEachState;
-    this.props.saveStateUpdate({
-      name, seen, seenBy, gameId: this.props.selectedGame.uid, stateId: this.props.eachState.uid
-    });
+    const { latitude, longitude } = this.props.currentLoc;
+    const updatedInfo = {
+      name, seen, seenBy,
+      gameId: this.props.selectedGame.uid,
+      stateId: this.props.eachState.uid,
+      foundLatitude: latitude,
+      foundLongitude: longitude
+    };
+    this.props.saveStateUpdate(updatedInfo);
   }
   renderPlayers() {
     const { players } = this.props.selectedGame;
@@ -92,11 +98,6 @@ class EditAState extends Component {
             </Button>
           </CardSection>
         </Card>
-        {/* <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Latitude: {this.state.latitude}</Text>
-          <Text>Longitude: {this.state.longitude}</Text>
-          {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
-        </View> */}
         {this.renderMapView()}
       </View>
 
