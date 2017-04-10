@@ -7,6 +7,7 @@ import GameList from './components/GameList';
 import GameScene from './components/GameScene';
 import EditAState from './components/EditAState';
 import StateList from './components/StateList';
+import GameHistory from './components/GameHistory';
 import { logoutUser } from './actions';
 
 class RouterComponent extends Component {
@@ -28,9 +29,12 @@ class RouterComponent extends Component {
             initial
           />
           <Scene key='gameCreate' component={GameCreate} title='Create Game' />
+          <Scene key='gameHistory' component={GameHistory} title='Game History' />
           <Scene
             onLeft={() => Actions.gameList({ type: 'reset' })}
             leftTitle='Games'
+            onRight={() => Actions.gameHistory()}
+            rightTitle='History'
             key='gameScene'
             component={GameScene}
             title='Game Status'
