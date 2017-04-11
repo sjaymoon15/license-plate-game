@@ -5,6 +5,9 @@ import MapView from 'react-native-maps';
 import { Card, CardSection, Button } from './common';
 
 class GameHistory extends Component {
+  componentDidMount() {
+    this.refs.map.fitToElements(true);
+  }
   renderMapView() {
     const { stateData } = this.props.realtimeGame;
     const foundStateData = [];
@@ -13,14 +16,16 @@ class GameHistory extends Component {
         foundStateData.push(stateData[key]);
       }
     }
-    foundStateData.forEach((eachState) => {
+    foundStateData.forEach((eachState, index) => {
       let timeStampRaw = new Date(eachState.updatedAt)
       eachState.updatedAt = timeStampRaw.toISOString().slice(0, 10);
+      eachState.key = index;
     })
     console.log(foundStateData);
     return (
       <View style={styles.viewStyle}>
         <MapView
+          ref="map"
           style={styles.mapViewStyle}
           initialRegion={{
             latitude: 37.785834,
@@ -28,11 +33,10 @@ class GameHistory extends Component {
             latitudeDelta: 0.1555,
             longitudeDelta: 0.2555,
           }}
-          showsUserLocation={true}
         >
           {foundStateData.map(marker => (
             <MapView.Marker
-              key={marker.updatedAt}
+              key={marker.key}
               coordinate={{latitude: marker.foundLatitude, longitude: marker.foundLongitude}}
               pinColor={marker.foundByColor}
               title={marker.name}
