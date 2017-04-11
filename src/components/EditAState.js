@@ -124,8 +124,8 @@ const styles = {
   mapViewStyle: {
     position: 'absolute',
     height: 300,
-    left: 10,
-    right: 10,
+    left: 20,
+    right: 20,
     bottom: 20
   },
   errorTextStyle: {
