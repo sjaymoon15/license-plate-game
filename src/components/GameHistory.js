@@ -17,7 +17,7 @@ class GameHistory extends Component {
       }
     }
     foundStateData.forEach((eachState, index) => {
-      let timeStampRaw = new Date(eachState.updatedAt)
+      const timeStampRaw = new Date(eachState.updatedAt)
       eachState.updatedAt = timeStampRaw.toISOString().slice(0, 10);
       eachState.key = index;
     })
@@ -28,8 +28,8 @@ class GameHistory extends Component {
           ref="map"
           style={styles.mapViewStyle}
           initialRegion={{
-            latitude: 37.785834,
-            longitude: -122.406417,
+            latitude: 39.8282,
+            longitude: -98.5795,
             latitudeDelta: 0.1555,
             longitudeDelta: 0.2555,
           }}
