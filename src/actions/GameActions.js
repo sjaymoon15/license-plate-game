@@ -5,7 +5,7 @@ import {
   PLAYER_ADD_SUCCESS, PLAYERS_CREATE_SUCCESS, PLAYER_DELETE, EMPTY_GAME_CREATFORM,
   STATE_UPDATE, STATE_SELECTED, GAME_SELECTED, STATE_SAVE_SUCCESS, STATES_FETCH_SUCCESS,
   GAME_CREATE_START, GAME_CREATE_FINISH, GAME_DELETED, LOCATION_DETECTED,
-  LOCATION_DETECT_FAILED
+  LOCATION_DETECT_FAILED, LOCATION_CHANGED
  } from './types';
 
 export const emptyGameCreateForm = () => {
@@ -167,3 +167,10 @@ export const locationDetected = () => {
     );
   };
 }
+
+export const locationChanged = (coordinate) => {
+  return {
+    type: LOCATION_CHANGED,
+    payload: coordinate
+  };
+};
