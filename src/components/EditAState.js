@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import MapView from 'react-native-maps';
 import { Card, CardSection, Button } from './common';
-import { stateUpdate, saveStateUpdate, locationDetected } from '../actions';
+import { stateUpdate,
+  saveStateUpdate,
+  locationDetected,
+  locationChanged } from '../actions';
 
 class EditAState extends Component {
 
@@ -63,7 +66,14 @@ class EditAState extends Component {
             longitudeDelta: 0.0421,
           }}
           showsUserLocation={true}
-        />
+        >
+          <MapView.Marker draggable
+            coordinate={{latitude: latitude, longitude: longitude}}
+            onDragEnd={(e) => this.props.locationChanged(e.nativeEvent.coordinate)}
+            title="Found Location"
+            description={"Move marker to the found location of the state"}
+          />
+        </MapView>
         <Text style={styles.errorTextStyle}>{error}</Text>
       </View>
     );
@@ -146,4 +156,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   stateUpdate,
   saveStateUpdate,
-  locationDetected })(EditAState);
+  locationDetected,
+  locationChanged })(EditAState);
