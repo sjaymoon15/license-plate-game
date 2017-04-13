@@ -144,7 +144,6 @@ export const locationDetected = () => {
   return (dispatch) => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position.coords);
         dispatch({
           type: LOCATION_DETECTED,
           payload: {
