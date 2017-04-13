@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Dimensions } from 'react-native';
 import MapView from 'react-native-maps';
 import { Card, CardSection, Button } from './common';
 
@@ -8,10 +12,9 @@ class GameHistory extends Component {
   componentDidMount() {
     this.refs.map.fitToElements(true);
   }
-  onRowPress(row) {
-    console.log(row);
-  }
   renderMapView() {
+    const latitude = 39.8282;
+    const longitude = -98.5795;
     const { stateData } = this.props.realtimeGame;
     const foundStateData = [];
     for(let key of Object.keys(stateData)) {
@@ -24,17 +27,16 @@ class GameHistory extends Component {
       eachState.updatedAt = timeStampRaw.toISOString().slice(0, 10);
       eachState.key = index;
     })
-    console.log(foundStateData);
     return (
       <View style={styles.viewStyle}>
         <MapView
           ref="map"
           style={styles.mapViewStyle}
           initialRegion={{
-            latitude: 39.8282,
-            longitude: -98.5795,
-            latitudeDelta: 0.1555,
-            longitudeDelta: 0.2555,
+            latitude,
+            longitude,
+            latitudeDelta: 30.1555,
+            longitudeDelta: 28.2555,
           }}
         >
           {foundStateData.map(marker => (

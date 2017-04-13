@@ -57,6 +57,10 @@ class EditAState extends Component {
     if (!latitude || !longitude) { return; };
     return (
       <View style={styles.viewStyle}>
+        <CardSection style={styles.cardSectionsStyle}>
+          <Text style={styles.contentStyle}>Use current Location or Move the Marker</Text>
+        </CardSection>
+        <Text style={styles.errorTextStyle}>{error}</Text>
         <MapView
           style={styles.mapViewStyle}
           region={{
@@ -74,7 +78,6 @@ class EditAState extends Component {
             description={"Move marker to the found location of the state"}
           />
         </MapView>
-        <Text style={styles.errorTextStyle}>{error}</Text>
       </View>
     );
   }
@@ -133,10 +136,10 @@ const styles = {
   },
   mapViewStyle: {
     position: 'absolute',
-    height: 300,
+    height: 250,
     left: 20,
     right: 20,
-    bottom: 20
+    bottom: 40
   },
   errorTextStyle: {
     fontSize: 20,
