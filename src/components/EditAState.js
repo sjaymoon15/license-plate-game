@@ -23,7 +23,7 @@ class EditAState extends Component {
   }
   onSaveButtonPress() {
     const { name, seen, seenBy, foundByColor } = this.props.updatedEachState;
-    const { latitude, longitude } = this.props.currentLoc;
+    const { latitude, longitude, error } = this.props.currentLoc;
     const updatedInfo = {
       name, seen, seenBy, foundByColor,
       gameId: this.props.selectedGame.uid,
